@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Botão com Fundo Animado</title>
+<style>
+    /* Estilos básicos do botão */
+    .botao-animado {
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        outline: none;
+        background-size: 300% 300%; /* Para um efeito de deslizamento */
+        animation: bgAnimation 3s infinite linear; /* Duração e loop da animação */
+    }
+
+    /* Animação de cores */
+    @keyframes bgAnimation {
+        0% {
+            background-color: #ff6b6b;
+        }
+        25% {
+            background-color: #ff9f43;
+        }
+        50% {
+            background-color: #1dd1a1;
+        }
+        75% {
+            background-color: #54a0ff;
+        }
+        100% {
+            background-color: #ff6b6b;
+        }
+    }
+</style>
+</head>
+<body>
+
+<button class="botao-animado">Clique Aqui</button>
+
+</body>
+</html>
