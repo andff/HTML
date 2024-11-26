@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efeito Parallax</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Estilo para a seção Parallax */
+        .parallax {
+            height: 100vh; /* Altura da seção */
+            background-attachment: fixed; /* Fixa o fundo */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Camadas de Parallax */
+        .parallax-1 {
+            background-image: url('https://images.ctfassets.net/2pyx8rwuvz6x/3agrFy0rGxd9Vg2eHdKHH/ea15edb209ebd0028b2dda6d64fc93b6/post-107-assets-1-en-us.jpg');
+        }
+
+        .parallax-2 {
+            background-image: url('https://www.designi.com.br/images/preview/10097608.jpg');
+        }
+
+        .parallax-3 {
+            background-image: url('https://c.pxhere.com/images/43/c4/0112b90aa1bdeb93519d14635f52-1593078.jpg!d');
+        }
+
+        /* Conteúdo */
+        .content {
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .content h1 {
+            font-size: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Seção com efeito Parallax -->
+    <div class="parallax parallax-1"></div>
+    <div class="content">
+        <h1>Bem-vindo ao efeito Parallax!</h1>
+        <p>Este é um exemplo simples usando apenas HTML e CSS.</p>
+    </div>
+    <div class="parallax parallax-2"></div>
+    <div class="content">
+        <h1>Crie páginas dinâmicas</h1>
+        <p>Experimente diferentes imagens e conteúdos.</p>
+    </div>
+    <div class="parallax parallax-3"></div>
+    <div class="content">
+        <h1>Personalize o design</h1>
+        <p>Adicione camadas e ajuste as imagens para criar efeitos incríveis.</p>
+    </div>
+</body>
+</html>

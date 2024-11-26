@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra de Rolagem Colorida</title>
+    <style>
+        /* Para navegadores baseados em WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem vertical */
+    height: 12px; /* Altura da barra de rolagem horizontal */
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4); /* Cor do "polegar" (thumb) */
+    border-radius: 6px; /* Arredondamento */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #ff6a6a, #fbc2eb); /* Cor ao passar o mouse */
+}
+
+::-webkit-scrollbar-track {
+    background: #f4f4f4; /* Cor do fundo da barra de rolagem */
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-track:hover {
+    background: #e4e4e4; /* Cor ao passar o mouse */
+}
+
+/* Para Firefox (usando pseudoclasse experimental) */
+.scroll-container {
+    scrollbar-width: thin; /* Largura fina */
+    scrollbar-color: #ff9a9e #f4f4f4; /* Cor do polegar e fundo */
+}
+
+/* Para dispositivos de toque ou navegadores que suportam a barra de rolagem CSS nativa */
+body {
+    scroll-behavior: smooth; /* Suaviza o movimento do scroll */
+}
+
+    </style>
+</head>
+<body>
+    <div class="scroll-container" style="height: 200vh; padding: 20px;">
+        <h1>Role para ver a barra de rolagem estilizada</h1>
+        <p>Texto de exemplo para demonstrar o scroll.</p>
+    </div>
+</body>
+</html>

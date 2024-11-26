@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Animations</title>
+    <!-- Link para a biblioteca Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+        }
+        .hidden {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <section class="hidden" data-animate="animate__flipInX" style="background-color: red;">
+        Seção 1
+    </section>
+    <section class="hidden" data-animate="animate__flipInX" style="background-color: blue;">
+        Seção 2
+    </section>
+    <section class="hidden" data-animate="animate__flipInX" style="background-color: green;">
+        Seção 3
+    </section>
+    <section class="hidden" data-animate="animate__flipInX" style="background-color: yellowgreen;">
+        Seção 4
+    </section>
+    <script>
+        // Função para verificar se o elemento está visível na viewport
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Função para executar as animações
+        function handleScroll() {
+            const elements = document.querySelectorAll('.hidden');
+            elements.forEach(el => {
+                if (isElementInViewport(el)) {
+                    const animationClass = el.getAttribute('data-animate');
+                    el.classList.add('animate__animated', animationClass);
+                    el.classList.remove('hidden');
+                }
+            });
+        }
+
+        // Adiciona o evento de scroll
+        window.addEventListener('scroll', handleScroll);
+
+        // Chama a função no carregamento inicial
+        document.addEventListener('DOMContentLoaded', handleScroll);
+    </script>
+</body>
+</html>
