@@ -1,0 +1,210 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+body {
+	font-family: "Press Start 2P", cursive;
+	margin: 0;
+	overflow-x: hidden;
+	padding: 0;
+}
+body:before {
+	background: linear-gradient(#548cff, #3364c9);
+	content: "";
+	display: block;
+	height: 100vh;
+	position: fixed;
+	width: 100%;
+}
+body > * {
+	position: relative;
+	z-index: 1;
+}
+.cloud {
+	height: 40px;
+	opacity: 0.5;
+	position: fixed;
+}
+.cloud:nth-child(2) {
+	animation: wind 80s both infinite linear reverse;
+	top: 20%;
+}
+.cloud:nth-child(3) {
+	animation: wind 50s both infinite linear reverse;
+	top: 40%;
+}
+.cloud:nth-child(4) {
+	animation: wind 30s both infinite linear reverse;
+	top: 60%;
+}
+h1 {
+	color: white;
+	margin: 0 auto 30px;
+	padding: 60px 20px 0;
+	text-align: center;
+	text-shadow: 1px 1px 1px gray;
+}
+p {
+	color: white;
+	margin-bottom: calc(50vh - 120px);
+	text-align: center;
+}
+footer {
+	align-items: flex-end;
+	color: white;
+	display: flex;
+	font-size: 10px;
+	justify-content: center;
+	min-height: calc(50vh - 260px);
+	padding: 0 30px 30px;
+	text-align: center;
+}
+.timeline {
+	list-style: none;
+	margin: auto;
+	max-width: 920px;
+}
+.timeline li {
+	align-items: center;
+	box-sizing: border-box;
+	color: transparent;
+	display: flex;
+	font-size: 20px;
+	height: 180px;
+	margin: 0 auto;
+	opacity: 0.2;
+	padding: 0 0 125px calc(50% + 60px);
+	position: relative;
+	transition: all 500ms;
+}
+.timeline li time {
+	left: 0;
+	position: absolute;
+	text-align: right;
+	width: calc(50% - 60px);
+}
+.timeline .active {
+	opacity: 1;
+}
+.timeline .active.last {
+	color: white;
+}
+.timeline li:after {
+	background: #000;
+	bottom: 0px;
+	content: "";
+	display: block;
+	height: 130px;
+	left: calc(50% - 2px);
+	position: absolute;
+	width: 4px;
+}
+.timeline li.active:after {
+	opacity: 0.2;
+}
+.timeline li:last-child:after {
+	display: none;
+}
+.timeline li:before {
+	background: linear-gradient(#000 0 0) 3px 3px,
+		linear-gradient(#000 0 0) calc(100% - 3px) 3px,
+		linear-gradient(#000 0 0) 3px calc(100% - 3px),
+		linear-gradient(#000 0 0) calc(100% - 3px) calc(100% - 3px), #fab931;
+	background-repeat: no-repeat;
+	background-size: 3px 3px;
+	border: 3px solid;
+	border-color: #994800 #000 #000 #994800;
+	box-sizing: border-box;
+	color: #994800;
+	content: "?";
+	font-family: sans-serif;
+	font-size: 46px;
+	font-weight: bold;
+	height: 50px;
+	left: calc(50% - 25px);
+	line-height: 1em;
+	position: absolute;
+	text-align: center;
+	text-shadow: 2px 2px black;
+	top: 0;
+	transition: all 500ms;
+	width: 50px;
+	z-index: 1;
+}
+.timeline:last-of-type li.active.last:before {
+	transform: scale(1.5);
+}
+.timeline li time:before {
+	background-color: #f44336;
+	box-shadow: -90px 0 0 0 #ffccbc, -80px 0 0 0 #ffccbc, -70px 0 0 0 #ffccbc,
+		-60px 0 0 0 #f44336, -50px 0 0 0 #f44336, -40px 0 0 0 #f44336,
+		-30px 0 0 0 #f44336, -20px 0 0 0 #2196f3, -10px 0 0 0 #f44336,
+		10px 0 0 0 #f44336, 20px 0 0 0 #2196f3, 30px 0 0 0 #f44336, 40px 0 0 0 #f44336,
+		70px 0 0 0 #795548, -30px -10px 0 0 #ffccbc, -20px -10px 0 0 #ffccbc,
+		-10px -10px 0 0 #ffccbc, 0px -10px 0 0 #ffccbc, 10px -10px 0 0 #ffccbc,
+		20px -10px 0 0 #ffccbc, 30px -10px 0 0 #ffccbc, 40px -10px 0 0 #f44336,
+		50px -10px 0 0 #f44336, -50px -20px 0 0 #795548, -40px -20px 0 0 #795548,
+		-30px -20px 0 0 #ffccbc, -20px -20px 0 0 #ffccbc, -10px -20px 0 0 #ffccbc,
+		0px -20px 0 0 #ffccbc, 10px -20px 0 0 #333, 20px -20px 0 0 #333,
+		30px -20px 0 0 #333, 40px -20px 0 0 #333, 50px -20px 0 0 #f44336,
+		-50px -30px 0 0 #795548, -40px -30px 0 0 #ffccbc, -30px -30px 0 0 #795548,
+		-20px -30px 0 0 #795548, -10px -30px 0 0 #ffccbc, 0px -30px 0 0 #ffccbc,
+		10px -30px 0 0 #ffccbc, 20px -30px 0 0 #333, 30px -30px 0 0 #ffccbc,
+		40px -30px 0 0 #ffccbc, 50px -30px 0 0 #ffccbc, 60px -30px 0 0 #f44336,
+		-50px -40px 0 0 #795548, -40px -40px 0 0 #ffccbc, -30px -40px 0 0 #795548,
+		-20px -40px 0 0 #ffccbc, -10px -40px 0 0 #ffccbc, 0px -40px 0 0 #ffccbc,
+		10px -40px 0 0 #333, 20px -40px 0 0 #ffccbc, 30px -40px 0 0 #ffccbc,
+		40px -40px 0 0 #ffccbc, 50px -40px 0 0 #f44336, 60px -40px 0 0 #f44336,
+		-40px -50px 0 0 #795548, -30px -50px 0 0 #795548, -20px -50px 0 0 #795548,
+		-10px -50px 0 0 #ffccbc, 0px -50px 0 0 #ffccbc, 10px -50px 0 0 #333,
+		20px -50px 0 0 #ffccbc, 40px -50px 0 0 #f44336, 50px -50px 0 0 #f44336,
+		60px -50px 0 0 #f44336, -40px -60px 0 0 #f44336, -30px -60px 0 0 #f44336,
+		-20px -60px 0 0 #f44336, -10px -60px 0 0 #f44336, 0px -60px 0 0 #f44336,
+		10px -60px 0 0 #f44336, 20px -60px 0 0 #f44336, 30px -60px 0 0 #f44336,
+		40px -60px 0 0 #f44336, 50px -60px 0 0 #ffccbc, 60px -60px 0 0 #ffccbc,
+		-30px -70px 0 0 #f44336, -20px -70px 0 0 #f44336, -10px -70px 0 0 #f44336,
+		0px -70px 0 0 #f44336, 10px -70px 0 0 #f44336, 40px -70px 0 0 #ffccbc,
+		50px -70px 0 0 #ffccbc, 60px -70px 0 0 #ffccbc, -90px 10px 0 0 #ffccbc,
+		-80px 10px 0 0 #ffccbc, -70px 10px 0 0 #ffccbc, -60px 10px 0 0 #f44336,
+		-50px 10px 0 0 #f44336, -40px 10px 0 0 #f44336, -30px 10px 0 0 #f44336,
+		-20px 10px 0 0 #f44336, -10px 10px 0 0 #2196f3, 0px 10px 0 0 #f44336,
+		10px 10px 0 0 #f44336, 20px 10px 0 0 #f44336, 30px 10px 0 0 #2196f3,
+		60px 10px 0 0 #795548, 70px 10px 0 0 #795548, -80px 20px 0 0 #ffccbc,
+		-40px 20px 0 0 #f44336, -30px 20px 0 0 #f44336, -20px 20px 0 0 #f44336,
+		-10px 20px 0 0 #2196f3, 0px 20px 0 0 #2196f3, 10px 20px 0 0 #2196f3,
+		20px 20px 0 0 #2196f3, 30px 20px 0 0 #ffeb3b, 40px 20px 0 0 #2196f3,
+		50px 20px 0 0 #2196f3, 60px 20px 0 0 #795548, 70px 20px 0 0 #795548,
+		-30px 30px 0 0 #2196f3, -20px 30px 0 0 #2196f3, -10px 30px 0 0 #2196f3,
+		0px 30px 0 0 #ffeb3b, 10px 30px 0 0 #2196f3, 20px 30px 0 0 #2196f3,
+		30px 30px 0 0 #2196f3, 40px 30px 0 0 #2196f3, 50px 30px 0 0 #2196f3,
+		60px 30px 0 0 #795548, 70px 30px 0 0 #795548, -50px 40px 0 0 #795548,
+		-40px 40px 0 0 #795548, -30px 40px 0 0 #2196f3, -20px 40px 0 0 #2196f3,
+		-10px 40px 0 0 #2196f3, 0px 40px 0 0 #2196f3, 10px 40px 0 0 #2196f3,
+		20px 40px 0 0 #2196f3, 30px 40px 0 0 #2196f3, 40px 40px 0 0 #2196f3,
+		50px 40px 0 0 #2196f3, 60px 40px 0 0 #795548, 70px 40px 0 0 #795548,
+		-60px 50px 0 0 #795548, -50px 50px 0 0 #795548, -40px 50px 0 0 #795548,
+		-30px 50px 0 0 #2196f3, -20px 50px 0 0 #2196f3, -10px 50px 0 0 #2196f3,
+		0px 50px 0 0 #2196f3, 10px 50px 0 0 #2196f3, 20px 50px 0 0 #2196f3,
+		-60px 60px 0 0 #795548, -50px 60px 0 0 #795548;
+	content: "";
+	display: block;
+	height: 10px;
+	opacity: 0;
+	position: absolute;
+	right: -65px;
+	top: 120px;
+	transform: scale(0.4);
+	transition: all 400ms;
+	width: 10px;
+	z-index: 2;
+}
+.timeline li.active.last time:before {
+	opacity: 1;
+	top: 80px;
+}
+@keyframes wind {
+	from {
+		left: -300px;
+	}
+	to {
+		left: 100%;
+	}
+}
