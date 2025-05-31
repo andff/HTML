@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulário Completo</title>
+</head>
+<body>
+  <h1>Formulário de Exemplo</h1>
+  <form action="resultado.html" method="GET">
+    <label>Nome:
+      <input type="text" name="nome" required>
+    </label><br><br>
+
+    <label>Email:
+      <input type="email" name="email" required>
+    </label><br><br>
+
+    <label>Senha:
+      <input type="password" name="senha">
+    </label><br><br>
+
+    <label>Idade:
+      <input type="number" name="idade">
+    </label><br><br>
+
+    <label>Data de Nascimento:
+      <input type="date" name="data_nasc">
+    </label><br><br>
+
+    <label>Telefone:
+      <input type="tel" name="telefone">
+    </label><br><br>
+
+    <label>Cor Favorita:
+      <input type="color" name="cor_favorita">
+    </label><br><br>
+
+    <label>Gênero:</label><br>
+    <input type="radio" name="genero" value="Masculino"> Masculino<br>
+    <input type="radio" name="genero" value="Feminino"> Feminino<br>
+    <input type="radio" name="genero" value="Outro"> Outro<br><br>
+
+    <label>Interesses:</label><br>
+    <input type="checkbox" name="interesses" value="Esporte"> Esporte<br>
+    <input type="checkbox" name="interesses" value="Música"> Música<br>
+    <input type="checkbox" name="interesses" value="Tecnologia"> Tecnologia<br><br>
+
+    <label>Estado:
+      <select name="estado">
+        <option value="">Selecione</option>
+        <option value="SP">São Paulo</option>
+        <option value="RJ">Rio de Janeiro</option>
+        <option value="MG">Minas Gerais</option>
+      </select>
+    </label><br><br>
+
+    <label>Mensagem:
+      <textarea name="mensagem"></textarea>
+    </label><br><br>
+
+    <input type="submit" value="Enviar">
+  </form>
+</body>
+</html>

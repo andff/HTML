@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado do Formulário</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .campo {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .campo strong {
+      display: block;
+      color: #333;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Resultado do Formulário</h1>
+
+  <div id="resultado">
+    <div class="campo"><strong>Nome:</strong> <span id="nome"></span></div>
+    <div class="campo"><strong>Email:</strong> <span id="email"></span></div>
+    <div class="campo"><strong>Senha:</strong> <span id="senha"></span></div>
+    <div class="campo"><strong>Idade:</strong> <span id="idade"></span></div>
+    <div class="campo"><strong>Data de Nascimento:</strong> <span id="data_nasc"></span></div>
+    <div class="campo"><strong>Telefone:</strong> <span id="telefone"></span></div>
+    <div class="campo"><strong>Cor Favorita:</strong> <span id="cor_favorita" style="font-weight: bold;"></span></div>
+    <div class="campo"><strong>Gênero:</strong> <span id="genero"></span></div>
+    <div class="campo"><strong>Interesses:</strong> <span id="interesses"></span></div>
+    <div class="campo"><strong>Estado:</strong> <span id="estado"></span></div>
+    <div class="campo"><strong>Mensagem:</strong> <span id="mensagem"></span></div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    function preencher(id, valor) {
+      document.getElementById(id).textContent = valor || 'Não informado';
+    }
+
+    preencher('nome', params.get('nome'));
+    preencher('email', params.get('email'));
+    preencher('senha', params.get('senha'));
+    preencher('idade', params.get('idade'));
+    preencher('data_nasc', params.get('data_nasc'));
+    preencher('telefone', params.get('telefone'));
+    preencher('cor_favorita', params.get('cor_favorita'));
+    preencher('genero', params.get('genero'));
+    preencher('interesses', params.getAll('interesses').join(', ')); // múltiplos interesses
+    preencher('estado', params.get('estado'));
+    preencher('mensagem', params.get('mensagem'));
+  </script>
+</body>
+</html>
