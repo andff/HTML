@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+* {font-family:verdana;}
+</style>
+</head>
+<body>
+
+<center><h2>Formulário Para WhatsApp</h2>
+<small>Todos os campos são obrigatórios.</small></center>
+<hr>
+<form id="meuForm">
+  
+  <fieldset><legend>Nome: *</legend>
+    <input type="text" name="nome" placeholder="Digite seu nome" size="50" required>
+  </fieldset>
+
+  <fieldset><legend>Gênero: *</legend>
+    <label><input type="radio" name="genero" value="Masculino" required> Masculino</label>
+    <label><input type="radio" name="genero" value="Feminino"> Feminino</label>
+    <label><input type="radio" name="genero" value="Outro"> Outro</label>
+  </fieldset>
+
+  <fieldset><legend>Idade: *</legend>
+    <select name="idade" required>
+      <option value="">Selecione</option>
+      <option value="Menos de 18">Menos de 18</option>
+      <option value="18-30">18-30</option>
+      <option value="31-50">31-50</option>
+      <option value="Mais de 50">Mais de 50</option>
+    </select>
+  </fieldset>
+
+  <fieldset><legend>Hobbies: *</legend>
+    <label><input type="checkbox" name="hobbies" value="Esportes" required> Esportes</label>
+    <label><input type="checkbox" name="hobbies" value="Leitura"> Leitura</label>
+    <label><input type="checkbox" name="hobbies" value="Música"> Música</label>
+    <label><input type="checkbox" name="hobbies" value="Viagem"> Viagem</label>
+  </fieldset>
+
+  <fieldset><legend>Mensagem adicional: *</legend>
+    <textarea name="mensagem" rows="4" cols="40" placeholder="Escreva algo" required></textarea>
+  </fieldset>
+
+  <center><p><small>* Sua mensagem será enviada via WhatsApp</small></p>
+  <button type="submit">Enviar</button></center>
+</form>
+
+<script>
+document.getElementById("meuForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  let form = event.target;
+  let nome = form.nome.value;
+  let genero = form.genero.value;
+  let idade = form.idade.value;
+
+  // Pegar múltiplos checkboxes
+  let hobbiesChecked = Array.from(form.querySelectorAll('input[name="hobbies"]:checked'));
+  if(hobbiesChecked.length === 0) {
+    alert("Selecione pelo menos um hobby.");
+    return;
+  }
+  let hobbies = hobbiesChecked.map(el => el.value).join(", ");
+  
+  let mensagemAdicional = form.mensagem.value;
+
+  // Montar mensagem
+  let texto = `Formulário preenchido:\n`;
+  texto += `Nome: ${nome}\n`;
+  texto += `Gênero: ${genero}\n`;
+  texto += `Idade: ${idade}\n`;
+  texto += `Hobbies: ${hobbies}\n`;
+  texto += `Mensagem: ${mensagemAdicional}\n`;
+
+  // URL encode
+  let url = "https://wa.me/558597730016?text=" + encodeURIComponent(texto);
+  window.open(url, "_blank");
+});
+</script>
+
+</body>
+</html>
