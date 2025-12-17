@@ -1,0 +1,35 @@
+body {
+    font-family: Verdana, Arial, sans-serif;
+}
+
+select {
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 15px;
+}
+
+button {
+    margin: 20px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 0;
+}
+
+p {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 30px;
+    border-radius: 8px;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Escolha o tema</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- CSS GLOBAL -->
+    <link rel="stylesheet" href="estilo.css">
+
+    <!-- NÃO coloque href aqui -->
+    <link id="theme-style" rel="stylesheet">
+</head>
+<body>
+
+<h1>Escolha o tema</h1>
+
+<select id="theme">
+    <option value="system">Sistema</option>
+    <option value="light">Claro</option>
+    <option value="dark">Escuro</option>
+</select>
+
+<script>
+    const link = document.getElementById("theme-style");
+    const select = document.getElementById("theme");
+
+    function systemTheme() {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+    }
+
+    function apply(theme) {
+        if (theme === "system") {
+            theme = systemTheme();
+        }
+        link.href = theme + ".css";
+        console.log("CSS carregado:", link.href);
+    }
+
+    const saved = localStorage.getItem("theme") || "system";
+    select.value = saved;
+    apply(saved);
+
+    select.onchange = () => {
+        localStorage.setItem("theme", select.value);
+        apply(select.value);
+    };
+</script>
+
+<hr>
+<!-- EXEMPLOS DE TAGS-->
+<h1>H1</h1>
+<h2>H2</h2>
+<h3>H3</h3>
+<a href="#">Link</a>
+<input type="text" placeholder="Campo de texto">
+<button>Botão </button>
+<p>Isso é um parágrafo</p>
+<b>Negrito</b>
+<div class="container">Container</div>
+
+
+
+
+
+</body>
+</html>

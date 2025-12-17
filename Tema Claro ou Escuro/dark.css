@@ -1,0 +1,45 @@
+body {
+    background: #212121;
+    color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: gray;
+}
+
+a:link, a:visited {
+	color: red;
+}
+
+a:hover {
+	color: orange;
+}
+
+a:active {
+	color: yellow;
+}
+
+input {
+    color: red;
+	background-color: lightpink;
+	box-shadow: 5px 5px 10px rgba(255, 0, 0, 0.5);
+}
+
+button {
+	background-color: red;
+	color: white;
+}
+
+p {
+	background-color: rgba(0, 0, 0, 0.1);
+	color: gray;
+}
+
+select {
+	color: gray;
+	background-color: lightgray;
+}
+
+.container {
+	background-color: rgba(255, 255, 255, 0.1);
+}
