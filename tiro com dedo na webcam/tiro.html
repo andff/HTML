@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Gesture Shooter</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #000; font-family: sans-serif; }
+        #video-container { position: absolute; width: 100%; height: 100%; transform: scaleX(-1); }
+        video { width: 100%; height: 100%; object-fit: cover; }
+        canvas { position: absolute; top: 0; left: 0; }
+        
+        #ui-layer {
+            position: absolute; top: 20px; left: 20px; color: #0f0;
+            text-shadow: 2px 2px #000; font-size: 24px; pointer-events: none;
+        }
+
+        #loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; color: white; z-index: 100;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%; border-top: 4px solid #0f0;
+            width: 40px; height: 40px; animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <div id="status">Initializing AI Models...</div>
+    </div>
+
+    <div id="ui-layer">Score: <span id="score">0</span></div>
+    <div id="video-container">
+        <video id="input-video" playsinline></video>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+    <script>
+        const statusEl = document.getElementById('status');
+        const scoreEl = document.getElementById('score');
+        const videoElement = document.getElementById('input-video');
+        
+        let score = 0;
+        let isReady = false;
+        let lastDetectionTime = 0;
+        const DETECTION_INTERVAL = 10; // ms (Limit AI to ~30fps to save CPU)
+
+        // --- Three.js Setup ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(0, 10, 10);
+        scene.add(light);
+        scene.add(new THREE.AmbientLight(0x404040));
+
+        // Laser & Crosshair
+        const laserGeometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,-10)]);
+        const laserMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
+        const laserLine = new THREE.Line(laserGeometry, laserMaterial);
+        scene.add(laserLine);
+
+        // --- Game Logic ---
+        const discs = [];
+        const spawnDisc = () => {
+            const geo = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 32);
+            const mat = new THREE.MeshPhongMaterial({ color: Math.random() * 0xffffff });
+            const disc = new THREE.Mesh(geo, mat);
+            
+            // Random edges spawn
+            const side = Math.random() > 0.5 ? 1 : -1;
+            disc.position.set(side * 8, (Math.random() - 0.5) * 8, -10 - Math.random() * 5);
+            disc.rotation.x = Math.PI / 2;
+            
+            // Velocity towards center
+            disc.userData.velocity = new THREE.Vector3(-disc.position.x * 0.02, -disc.position.y * 0.02, 0.02);
+            scene.add(disc);
+            discs.push(disc);
+        };
+
+        for(let i=0; i<4; i++) spawnDisc();
+
+        // Audio & VFX Context
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playHitSound() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.type = 'square'; osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        function createFloatingText(text, pos, color) {
+            // Simplified: console log for logic, in real app use CSS2DObject
+            console.log(`VFX: ${text} at ${pos.x}`);
+        }
+
+        // --- MediaPipe Gesture Engine ---
+        let handX = 0, handY = 0, isFiring = false, wasThumbUp = true;
+
+        const hands = new Hands({
+            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/${file}`
+        });
+
+        hands.setOptions({
+            maxNumHands: 1,
+            modelComplexity: 1,
+            minDetectionConfidence: 0.7,
+            minTrackingConfidence: 0.7
+        });
+
+        hands.onResults((results) => {
+            if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+                const landmarks = results.multiHandLandmarks[0];
+                
+                // Index Finger Tip (Landmark 8) for Aiming
+                const indexTip = landmarks[8];
+                handX = (indexTip.x - 0.5) * 20; // Map to Three.js space
+                handY = -(indexTip.y - 0.5) * 15;
+
+                // Gesture: Thumb Tip (4) distance to Index MCP (5)
+                const thumbTip = landmarks[4];
+                const indexBase = landmarks[5];
+                const dist = Math.hypot(thumbTip.x - indexBase.x, thumbTip.y - indexBase.y);
+                
+                // Pistol "Trigger" logic: Thumb down = Shoot
+                if (dist < 0.08 && wasThumbUp) {
+                    isFiring = true;
+                    wasThumbUp = false;
+                } else if (dist > 0.12) {
+                    wasThumbUp = true;
+                }
+            }
+        });
+
+        const cameraFeed = new Camera(videoElement, {
+            onFrame: async () => {
+                const now = Date.now();
+                if (now - lastDetectionTime > DETECTION_INTERVAL) {
+                    try {
+                        await hands.send({image: videoElement});
+                        lastDetectionTime = now;
+                        if(!isReady) {
+                            isReady = true;
+                            document.getElementById('loading-overlay').style.display = 'none';
+                        }
+                    } catch (e) { console.error("AI Loop Error:", e); }
+                }
+            },
+            width: 1280, height: 720
+        });
+        cameraFeed.start();
+
+        // --- Render Loop ---
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // 1. Aim Assist & Laser
+            let targetPos = new THREE.Vector3(handX, handY, -10);
+            let closestDisc = null;
+            let minDist = 2.5; // Magnetic attraction radius
+
+            discs.forEach(d => {
+                const dDist = Math.hypot(d.position.x - handX, d.position.y - handY);
+                if(dDist < minDist) {
+                    minDist = dDist;
+                    closestDisc = d;
+                }
+            });
+
+            if(closestDisc) {
+                targetPos.lerp(closestDisc.position, 0.6); // Snapping effect
+            }
+
+            laserLine.geometry.setFromPoints([new THREE.Vector3(handX, handY - 2, 0), targetPos]);
+
+            // 2. Shooting Logic
+            if (isFiring) {
+                if(closestDisc) {
+                    playHitSound();
+                    scene.remove(closestDisc);
+                    discs.splice(discs.indexOf(closestDisc), 1);
+                    spawnDisc();
+                    score += 100;
+                    scoreEl.innerText = score;
+                }
+                isFiring = false;
+            }
+
+            // 3. Update Discs
+            discs.forEach((d, i) => {
+                d.position.add(d.userData.velocity);
+                d.rotation.y += 0.05;
+                // Recycle if out of bounds
+                if(d.position.z > 2) {
+                    scene.remove(d);
+                    discs.splice(i, 1);
+                    spawnDisc();
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

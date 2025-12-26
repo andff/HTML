@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Automatic Blooming Flower</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #e0f2f1;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 400px;
+        }
+
+        /* 1. THE STEM - Animates height from 0 to 180px */
+        .stem {
+            width: 8px;
+            height: 0;
+            background: #2d6a4f;
+            border-radius: 10px;
+            animation: grow-stem 3s forwards ease-in-out;
+            position: relative;
+        }
+
+        @keyframes grow-stem {
+            from { height: 0; }
+            to { height: 180px; }
+        }
+
+        /* 2. THE FLOWER HEAD - Appears after the stem grows */
+        .flower {
+            position: absolute;
+            bottom: 180px; /* Matches final stem height */
+            transform: scale(0);
+            animation: bloom 2s forwards ease-out;
+            animation-delay: 2.5s; /* Starts as stem finishes */
+        }
+
+        @keyframes bloom {
+            0% { transform: scale(0) rotate(0deg); }
+            100% { transform: scale(1) rotate(15deg); }
+        }
+
+        /* 3. THE PETALS - Arranged in a circle */
+        .petal {
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            background: #ff4d6d;
+            border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
+            transform-origin: bottom center;
+            opacity: 0.9;
+            border: 1px solid #c9184a;
+        }
+
+        /* Positioning petals around the center */
+        .p1 { transform: translate(-50%, -100%) rotate(0deg); }
+        .p2 { transform: translate(-50%, -100%) rotate(72deg); }
+        .p3 { transform: translate(-50%, -100%) rotate(144deg); }
+        .p4 { transform: translate(-50%, -100%) rotate(216deg); }
+        .p5 { transform: translate(-50%, -100%) rotate(288deg); }
+
+        .center {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #ffb703;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        /* 4. THE POT */
+        .pot {
+            width: 100px;
+            height: 80px;
+            background: #a44a3f;
+            clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%);
+            z-index: 5;
+        }
+
+        .pot-top {
+            width: 110px;
+            height: 15px;
+            background: #89372d;
+            border-radius: 3px;
+            z-index: 6;
+        }
+
+        /* Swaying animation for the whole flower after it grows */
+        .flower-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: sway 4s infinite alternate ease-in-out;
+            animation-delay: 4s;
+            transform-origin: bottom center;
+        }
+
+        @keyframes sway {
+            from { transform: rotate(-2deg); }
+            to { transform: rotate(2deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="flower-wrapper">
+            <div class="flower">
+                <div class="center"></div>
+                <div class="petal p1"></div>
+                <div class="petal p2"></div>
+                <div class="petal p3"></div>
+                <div class="petal p4"></div>
+                <div class="petal p5"></div>
+            </div>
+            <div class="stem"></div>
+        </div>
+        
+        <div class="pot-top"></div>
+        <div class="pot"></div>
+    </div>
+
+</body>
+</html>
