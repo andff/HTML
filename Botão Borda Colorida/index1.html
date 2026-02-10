@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Botão Gemini Style</title>
+
+<style>
+  :root {
+    --bg: #0f0f12;
+    --btn-bg: #121212;
+    --border-size: 2px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  /* ==========================
+     BOTÃO ESTILO GEMINI
+     ========================== */
+  .gemini-btn {
+    position: relative;
+    padding: 16px 36px;
+    border-radius: 999px;
+    background: var(--btn-bg);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    z-index: 0;
+    isolation: isolate;
+  }
+
+  /* Borda arco-íris animada */
+  .gemini-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: var(--border-size);
+    border-radius: inherit;
+
+    background:
+      radial-gradient(
+        circle at 30% 30%,
+        rgba(255,255,255,0.35),
+        transparent 40%
+      ),
+      conic-gradient(
+        from 0deg,
+        #ff2d95,
+        #ff8c1a,
+        #f9ff2d,
+        #2dff9f,
+        #2dd9ff,
+        #8b5cff,
+        #ff2d95
+      );
+
+   
+
+    /* mostra apenas a borda */
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+
+    filter: blur(0.2px) saturate(1.2);
+  }
+
+  /* Glow externo suave */
+  .gemini-btn::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: conic-gradient(
+      from 0deg,
+      #ff2d95,
+      #ff8c1a,
+      #f9ff2d,
+      #2dff9f,
+      #2dd9ff,
+      #8b5cff,
+      #ff2d95
+    );
+    z-index: -1;
+    filter: blur(14px);
+    opacity: 0.35;
+   
+  }
+
+  /* Hover sutil (igual Gemini) */
+  .gemini-btn:hover {
+    background: #161616;
+  }
+
+  @keyframes gemini-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<button class="gemini-btn">
+  Aprofunde seus conhecimentos com o Modo IA
+</button>
+
+</body>
+</html>

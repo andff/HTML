@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gemini Border Correct</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: #0f0f12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  /* BOTÃO ESTÁTICO */
+  .gemini-btn {
+    position: relative;
+    padding: 16px 36px;
+    border-radius: 999px;
+    background: #121212;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  /* LAYER COLORIDO QUE GIRA (FILHO) */
+  .gemini-btn::before {
+    content: "";
+    position: absolute;
+    width: 300%;
+    height: 300%;
+    top: -100%;
+    left: -100%;
+
+    background: conic-gradient(
+      #ff2d95,
+      #ff8c1a,
+      #f9ff2d,
+      #2dff9f,
+      #2dd9ff,
+      #8b5cff,
+      #ff2d95
+    );
+
+    animation: spin 4s linear infinite;
+    z-index: 1;
+  }
+
+  /* MÁSCARA FIXA DA BORDA (NÃO SE MOVE) */
+  .gemini-btn::after {
+    content: "";
+    position: absolute;
+    inset: 2px; /* espessura da borda */
+    background: #121212;
+    border-radius: inherit;
+    z-index: 2;
+  }
+
+  /* TEXTO */
+  .gemini-btn span {
+    position: relative;
+    z-index: 3;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<button class="gemini-btn">
+  <span>Aprofunde seus conhecimentos com o Modo IA</span>
+</button>
+
+</body>
+</html>
