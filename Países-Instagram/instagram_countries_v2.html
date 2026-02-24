@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Instagram Countries</title>
+    <style>
+        body{font-family:Arial;background:#111;color:#eee;padding:20px}
+        input{padding:8px;width:300px;margin-bottom:20px}
+        a{color:#4da3ff}
+        button{margin-left:8px}
+        ul{columns:2}
+        h2{border-bottom:1px solid #444;padding-bottom:5px}
+    </style>
+    <script>
+        function copyLink(link){
+        navigator.clipboard.writeText(link);
+        alert("Link copiado!");
+        }
+        function search(){
+        let v=document.getElementById("search").value.toLowerCase();
+        document.querySelectorAll("li").forEach(li=>{
+        li.style.display=li.textContent.toLowerCase().includes(v)?"":"none";
+        });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Instagram Country Links</h1>
+    <input id="search" onkeyup="search()" placeholder="Buscar país...">
+    <h2>Africa</h2>
+    <ul>
+        <li>Botswana - <a href="https://www.instagram.com/explore/locations/BW/botswana/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/BW/botswana/')">Copiar</button>
+        </li>
+        <li>Egypt - <a href="https://www.instagram.com/explore/locations/EG/egypt/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/EG/egypt/')">Copiar</button>
+        </li>
+        <li>Ethiopia - <a href="https://www.instagram.com/explore/locations/ET/ethiopia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/ET/ethiopia/')">Copiar</button>
+        </li>
+        <li>Gabon - <a href="https://www.instagram.com/explore/locations/GA/gabon/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/GA/gabon/')">Copiar</button>
+        </li>
+        <li>Ghana - <a href="https://www.instagram.com/explore/locations/GH/ghana/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/GH/ghana/')">Copiar</button>
+        </li>
+        <li>Kenya - <a href="https://www.instagram.com/explore/locations/KE/kenya/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/KE/kenya/')">Copiar</button>
+        </li>
+        <li>Liberia - <a href="https://www.instagram.com/explore/locations/LR/liberia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/LR/liberia/')">Copiar</button>
+        </li>
+        <li>Libya - <a href="https://www.instagram.com/explore/locations/LY/libya/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/LY/libya/')">Copiar</button>
+        </li>
+        <li>Madagascar - <a href="https://www.instagram.com/explore/locations/MG/madagascar/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/MG/madagascar/')">Copiar</button>
+        </li>
+        <li>Malawi - <a href="https://www.instagram.com/explore/locations/MW/malawi/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/MW/malawi/')">Copiar</button>
+        </li>
+        <li>Mali - <a href="https://www.instagram.com/explore/locations/ML/mali/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/ML/mali/')">Copiar</button>
+        </li>
+        <li>Mauritius - <a href="https://www.instagram.com/explore/locations/MU/mauritius/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/MU/mauritius/')">Copiar</button>
+        </li>
+        <li>Morocco - <a href="https://www.instagram.com/explore/locations/MA/morocco/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/MA/morocco/')">Copiar</button>
+        </li>
+        <li>Mozambique - <a href="https://www.instagram.com/explore/locations/MZ/mozambique/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/MZ/mozambique/')">Copiar</button>
+        </li>
+        <li>Namibia - <a href="https://www.instagram.com/explore/locations/NA/namibia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/NA/namibia/')">Copiar</button>
+        </li>
+        <li>Nigeria - <a href="https://www.instagram.com/explore/locations/NG/nigeria/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/NG/nigeria/')">Copiar</button>
+        </li>
+        <li>Senegal - <a href="https://www.instagram.com/explore/locations/SN/senegal/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/SN/senegal/')">Copiar</button>
+        </li>
+        <li>Somalia - <a href="https://www.instagram.com/explore/locations/SO/somalia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/SO/somalia/')">Copiar</button>
+        </li>
+        <li>South Africa - <a href="https://www.instagram.com/explore/locations/ZA/south-africa/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/ZA/south-africa/')">Copiar</button>
+        </li>
+        <li>Sudan - <a href="https://www.instagram.com/explore/locations/SD/sudan/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/SD/sudan/')">Copiar</button>
+        </li>
+        <li>Tanzania - <a href="https://www.instagram.com/explore/locations/TZ/tanzania/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/TZ/tanzania/')">Copiar</button>
+        </li>
+        <li>Togo - <a href="https://www.instagram.com/explore/locations/TG/togo/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/TG/togo/')">Copiar</button>
+        </li>
+        <li>Tunisia - <a href="https://www.instagram.com/explore/locations/TN/tunisia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/TN/tunisia/')">Copiar</button>
+        </li>
+        <li>Zambia - <a href="https://www.instagram.com/explore/locations/ZM/zambia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/ZM/zambia/')">Copiar</button>
+        </li>
+        <li>Zimbabwe - <a href="https://www.instagram.com/explore/locations/ZW/zimbabwe/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/ZW/zimbabwe/')">Copiar</button>
+        </li>
+    </ul>
+    <h2>Antarctica</h2>
+    <ul>
+        <li>Antarctica - <a href="https://www.instagram.com/explore/locations/AQ/antarctica/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/AQ/antarctica/')">Copiar</button>
+        </li>
+    </ul>
+    <h2>Asia</h2>
+    <ul>
+        <li>Afghanistan - <a href="https://www.instagram.com/explore/locations/AF/afghanistan/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/AF/afghanistan/')">Copiar</button>
+        </li>
+        <li>Armenia - <a href="https://www.instagram.com/explore/locations/AM/armenia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/AM/armenia/')">Copiar</button>
+        </li>
+        <li>Bahrain - <a href="https://www.instagram.com/explore/locations/BH/bahrain/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/BH/bahrain/')">Copiar</button>
+        </li>
+        <li>Bangladesh - <a href="https://www.instagram.com/explore/locations/BD/bangladesh/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/BD/bangladesh/')">Copiar</button>
+        </li>
+        <li>Bhutan - <a href="https://www.instagram.com/explore/locations/BT/bhutan/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/BT/bhutan/')">Copiar</button>
+        </li>
+        <li>China - <a href="https://www.instagram.com/explore/locations/CN/china/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/CN/china/')">Copiar</button>
+        </li>
+        <li>India - <a href="https://www.instagram.com/explore/locations/IN/india/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/IN/india/')">Copiar</button>
+        </li>
+        <li>Indonesia - <a href="https://www.instagram.com/explore/locations/ID/indonesia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/ID/indonesia/')">Copiar</button>
+        </li>
+        <li>Iran - <a href="https://www.instagram.com/explore/locations/IR/iran/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/IR/iran/')">Copiar</button>
+        </li>
+        <li>Israel - <a href="https://www.instagram.com/explore/locations/IL/israel/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/IL/israel/')">Copiar</button>
+        </li>
+        <li>Japan - <a href="https://www.instagram.com/explore/locations/JP/japan/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/JP/japan/')">Copiar</button>
+        </li>
+        <li>Jordan - <a href="https://www.instagram.com/explore/locations/JO/jordan/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/JO/jordan/')">Copiar</button>
+        </li>
+        <li>Kuwait - <a href="https://www.instagram.com/explore/locations/KW/kuwait/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/KW/kuwait/')">Copiar</button>
+        </li>
+        <li>Lebanon - <a href="https://www.instagram.com/explore/locations/LB/lebanon/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/LB/lebanon/')">Copiar</button>
+        </li>
+        <li>Malaysia - <a href="https://www.instagram.com/explore/locations/MY/malaysia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/MY/malaysia/')">Copiar</button>
+        </li>
+        <li>Maldives - <a href="https://www.instagram.com/explore/locations/MV/maldives/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/MV/maldives/')">Copiar</button>
+        </li>
+        <li>Nepal - <a href="https://www.instagram.com/explore/locations/NP/nepal/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/NP/nepal/')">Copiar</button>
+        </li>
+        <li>Oman - <a href="https://www.instagram.com/explore/locations/OM/oman/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/OM/oman/')">Copiar</button>
+        </li>
+        <li>Pakistan - <a href="https://www.instagram.com/explore/locations/PK/pakistan/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/PK/pakistan/')">Copiar</button>
+        </li>
+        <li>Philippines - <a href="https://www.instagram.com/explore/locations/PH/philippines/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/PH/philippines/')">Copiar</button>
+        </li>
+        <li>Qatar - <a href="https://www.instagram.com/explore/locations/QA/qatar/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/QA/qatar/')">Copiar</button>
+        </li>
+        <li>Saudi Arabia - <a href="https://www.instagram.com/explore/locations/SA/saudi-arabia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/SA/saudi-arabia/')">Copiar</button>
+        </li>
+        <li>Singapore - <a href="https://www.instagram.com/explore/locations/SG/singapore/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/SG/singapore/')">Copiar</button>
+        </li>
+        <li>South Korea - <a href="https://www.instagram.com/explore/locations/KR/south-korea/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/KR/south-korea/')">Copiar</button>
+        </li>
+        <li>Syria - <a href="https://www.instagram.com/explore/locations/SY/syria/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/SY/syria/')">Copiar</button>
+        </li>
+        <li>Taiwan - <a href="https://www.instagram.com/explore/locations/TW/taiwan/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/TW/taiwan/')">Copiar</button>
+        </li>
+        <li>Thailand - <a href="https://www.instagram.com/explore/locations/TH/thailand/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/TH/thailand/')">Copiar</button>
+        </li>
+        <li>Turkey - <a href="https://www.instagram.com/explore/locations/TR/turkey/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/TR/turkey/')">Copiar</button>
+        </li>
+        <li>United Arab Emirates - <a href="https://www.instagram.com/explore/locations/AE/united-arab-emirates/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/AE/united-arab-emirates/')">Copiar</button>
+        </li>
+        <li>Vietnam - <a href="https://www.instagram.com/explore/locations/VN/vietnam/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/VN/vietnam/')">Copiar</button>
+        </li>
+        <li>Yemen - <a href="https://www.instagram.com/explore/locations/YE/yemen/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/YE/yemen/')">Copiar</button>
+        </li>
+    </ul>
+    <h2>Europe</h2>
+    <ul>
+        <li>Albania - <a href="https://www.instagram.com/explore/locations/AL/albania/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/AL/albania/')">Copiar</button>
+        </li>
+        <li>Andorra - <a href="https://www.instagram.com/explore/locations/AD/andorra/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/AD/andorra/')">Copiar</button>
+        </li>
+        <li>Austria - <a href="https://www.instagram.com/explore/locations/AT/austria/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/AT/austria/')">Copiar</button>
+        </li>
+        <li>Belarus - <a href="https://www.instagram.com/explore/locations/BY/belarus/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/BY/belarus/')">Copiar</button>
+        </li>
+        <li>Belgium - <a href="https://www.instagram.com/explore/locations/BE/belgium/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/BE/belgium/')">Copiar</button>
+        </li>
+        <li>Denmark - <a href="https://www.instagram.com/explore/locations/DK/denmark/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/DK/denmark/')">Copiar</button>
+        </li>
+        <li>Finland - <a href="https://www.instagram.com/explore/locations/FI/finland/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/FI/finland/')">Copiar</button>
+        </li>
+        <li>France - <a href="https://www.instagram.com/explore/locations/FR/france/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/FR/france/')">Copiar</button>
+        </li>
+        <li>Germany - <a href="https://www.instagram.com/explore/locations/DE/germany/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/DE/germany/')">Copiar</button>
+        </li>
+        <li>Greece - <a href="https://www.instagram.com/explore/locations/GR/greece/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/GR/greece/')">Copiar</button>
+        </li>
+        <li>Iceland - <a href="https://www.instagram.com/explore/locations/IS/iceland/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/IS/iceland/')">Copiar</button>
+        </li>
+        <li>Ireland - <a href="https://www.instagram.com/explore/locations/IE/ireland/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/IE/ireland/')">Copiar</button>
+        </li>
+        <li>Italy - <a href="https://www.instagram.com/explore/locations/IT/italy/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/IT/italy/')">Copiar</button>
+        </li>
+        <li>Latvia - <a href="https://www.instagram.com/explore/locations/LV/latvia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/LV/latvia/')">Copiar</button>
+        </li>
+        <li>Lithuania - <a href="https://www.instagram.com/explore/locations/LT/lithuania/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/LT/lithuania/')">Copiar</button>
+        </li>
+        <li>Luxembourg - <a href="https://www.instagram.com/explore/locations/LU/luxembourg/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/LU/luxembourg/')">Copiar</button>
+        </li>
+        <li>Malta - <a href="https://www.instagram.com/explore/locations/MT/malta/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/MT/malta/')">Copiar</button>
+        </li>
+        <li>Monaco - <a href="https://www.instagram.com/explore/locations/MC/monaco/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/MC/monaco/')">Copiar</button>
+        </li>
+        <li>Netherlands - <a href="https://www.instagram.com/explore/locations/NL/netherlands/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/NL/netherlands/')">Copiar</button>
+        </li>
+        <li>Norway - <a href="https://www.instagram.com/explore/locations/NO/norway/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/NO/norway/')">Copiar</button>
+        </li>
+        <li>Poland - <a href="https://www.instagram.com/explore/locations/PL/poland/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/PL/poland/')">Copiar</button>
+        </li>
+        <li>Portugal - <a href="https://www.instagram.com/explore/locations/PT/portugal/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/PT/portugal/')">Copiar</button>
+        </li>
+        <li>Romania - <a href="https://www.instagram.com/explore/locations/RO/romania/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/RO/romania/')">Copiar</button>
+        </li>
+        <li>Russia - <a href="https://www.instagram.com/explore/locations/RU/russia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/RU/russia/')">Copiar</button>
+        </li>
+        <li>Slovenia - <a href="https://www.instagram.com/explore/locations/SI/slovenia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/SI/slovenia/')">Copiar</button>
+        </li>
+        <li>Spain - <a href="https://www.instagram.com/explore/locations/ES/spain/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/ES/spain/')">Copiar</button>
+        </li>
+        <li>Sweden - <a href="https://www.instagram.com/explore/locations/SE/sweden/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/SE/sweden/')">Copiar</button>
+        </li>
+        <li>Switzerland - <a href="https://www.instagram.com/explore/locations/CH/switzerland/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/CH/switzerland/')">Copiar</button>
+        </li>
+        <li>Ukraine - <a href="https://www.instagram.com/explore/locations/UA/ukraine/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/UA/ukraine/')">Copiar</button>
+        </li>
+        <li>United Kingdom - <a href="https://www.instagram.com/explore/locations/GB/united-kingdom/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/GB/united-kingdom/')">Copiar</button>
+        </li>
+    </ul>
+    <h2>North America</h2>
+    <ul>
+        <li>Barbados - <a href="https://www.instagram.com/explore/locations/BB/barbados/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/BB/barbados/')">Copiar</button>
+        </li>
+        <li>Belize - <a href="https://www.instagram.com/explore/locations/BZ/belize/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/BZ/belize/')">Copiar</button>
+        </li>
+        <li>Canada - <a href="https://www.instagram.com/explore/locations/CA/canada/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/CA/canada/')">Copiar</button>
+        </li>
+        <li>Cuba - <a href="https://www.instagram.com/explore/locations/CU/cuba/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/CU/cuba/')">Copiar</button>
+        </li>
+        <li>Greenland - <a href="https://www.instagram.com/explore/locations/GL/greenland/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/GL/greenland/')">Copiar</button>
+        </li>
+        <li>Haiti - <a href="https://www.instagram.com/explore/locations/HT/haiti/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/HT/haiti/')">Copiar</button>
+        </li>
+        <li>Jamaica - <a href="https://www.instagram.com/explore/locations/JM/jamaica/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/JM/jamaica/')">Copiar</button>
+        </li>
+        <li>Mexico - <a href="https://www.instagram.com/explore/locations/MX/mexico/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/MX/mexico/')">Copiar</button>
+        </li>
+        <li>Nicaragua - <a href="https://www.instagram.com/explore/locations/NI/nicaragua/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/NI/nicaragua/')">Copiar</button>
+        </li>
+        <li>Panama - <a href="https://www.instagram.com/explore/locations/PA/panama/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/PA/panama/')">Copiar</button>
+        </li>
+        <li>United States - <a href="https://www.instagram.com/explore/locations/US/united-states/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/US/united-states/')">Copiar</button>
+        </li>
+    </ul>
+    <h2>Oceania</h2>
+    <ul>
+        <li>Australia - <a href="https://www.instagram.com/explore/locations/AU/australia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/AU/australia/')">Copiar</button>
+        </li>
+        <li>Fiji - <a href="https://www.instagram.com/explore/locations/FJ/fiji/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/FJ/fiji/')">Copiar</button>
+        </li>
+        <li>Guam - <a href="https://www.instagram.com/explore/locations/GU/guam/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/GU/guam/')">Copiar</button>
+        </li>
+        <li>Kiribati - <a href="https://www.instagram.com/explore/locations/KI/kiribati/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/KI/kiribati/')">Copiar</button>
+        </li>
+        <li>Marshall Islands - <a href="https://www.instagram.com/explore/locations/MH/marshall-islands/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/MH/marshall-islands/')">Copiar</button>
+        </li>
+        <li>Nauru - <a href="https://www.instagram.com/explore/locations/NR/nauru/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/NR/nauru/')">Copiar</button>
+        </li>
+        <li>New Zealand - <a href="https://www.instagram.com/explore/locations/NZ/new-zealand/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/NZ/new-zealand/')">Copiar</button>
+        </li>
+        <li>Palau - <a href="https://www.instagram.com/explore/locations/PW/palau/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/PW/palau/')">Copiar</button>
+        </li>
+        <li>Samoa - <a href="https://www.instagram.com/explore/locations/WS/samoa/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/WS/samoa/')">Copiar</button>
+        </li>
+        <li>Tonga - <a href="https://www.instagram.com/explore/locations/TO/tonga/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/TO/tonga/')">Copiar</button>
+        </li>
+        <li>Tuvalu - <a href="https://www.instagram.com/explore/locations/TV/tuvalu/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/TV/tuvalu/')">Copiar</button>
+        </li>
+        <li>Vanuatu - <a href="https://www.instagram.com/explore/locations/VU/vanuatu/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/VU/vanuatu/')">Copiar</button>
+        </li>
+    </ul>
+    <h2>South America</h2>
+    <ul>
+        <li>Argentina - <a href="https://www.instagram.com/explore/locations/AR/argentina/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/AR/argentina/')">Copiar</button>
+        </li>
+        <li>Bolivia - <a href="https://www.instagram.com/explore/locations/BO/bolivia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/BO/bolivia/')">Copiar</button>
+        </li>
+        <li>Brazil - <a href="https://www.instagram.com/explore/locations/BR/brazil/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/BR/brazil/')">Copiar</button>
+        </li>
+        <li>Chile - <a href="https://www.instagram.com/explore/locations/CL/chile/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/CL/chile/')">Copiar</button>
+        </li>
+        <li>Colombia - <a href="https://www.instagram.com/explore/locations/CO/colombia/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/CO/colombia/')">Copiar</button>
+        </li>
+        <li>Ecuador - <a href="https://www.instagram.com/explore/locations/EC/ecuador/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/EC/ecuador/')">Copiar</button>
+        </li>
+        <li>Guyana - <a href="https://www.instagram.com/explore/locations/GY/guyana/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/GY/guyana/')">Copiar</button>
+        </li>
+        <li>Paraguay - <a href="https://www.instagram.com/explore/locations/PY/paraguay/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/PY/paraguay/')">Copiar</button>
+        </li>
+        <li>Peru - <a href="https://www.instagram.com/explore/locations/PE/peru/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/PE/peru/')">Copiar</button>
+        </li>
+        <li>Uruguay - <a href="https://www.instagram.com/explore/locations/UY/uruguay/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/UY/uruguay/')">Copiar</button>
+        </li>
+        <li>Venezuela - <a href="https://www.instagram.com/explore/locations/VE/venezuela/" target="_blank">Abrir</a>
+            <button onclick="copyLink('https://www.instagram.com/explore/locations/VE/venezuela/')">Copiar</button>
+        </li>
+    </ul>
+</body>
+
+</html>
