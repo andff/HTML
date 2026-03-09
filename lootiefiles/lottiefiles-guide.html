@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como Criar um LottieFile</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --card: #111118;
+    --border: #1e1e2e;
+    --text: #e8e8f0;
+    --muted: #5a5a7a;
+    --simple: #00e5a0;
+    --complicated: #ff6b35;
+    --pro: #a78bfa;
+    --accent: #f0f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(167,139,250,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(167,139,250,0.1);
+    border: 1px solid rgba(167,139,250,0.3);
+    color: var(--pro);
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 6px 16px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 7vw, 80px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+  }
+
+  h1 span {
+    background: linear-gradient(135deg, #00e5a0, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-bottom: 48px;
+  }
+
+  /* WHAT IS LOTTIE */
+  .what-is {
+    max-width: 700px;
+    margin: 0 auto 80px;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .what-is p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 2;
+    border-left: 2px solid var(--border);
+    padding-left: 16px;
+    text-align: left;
+  }
+
+  .what-is p strong {
+    color: var(--text);
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 0 auto 48px;
+    max-width: 600px;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 12px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s;
+  }
+
+  .tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 2px;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .tab-btn[data-tab="simple"] { --c: var(--simple); }
+  .tab-btn[data-tab="complicated"] { --c: var(--complicated); }
+  .tab-btn[data-tab="pro"] { --c: var(--pro); }
+
+  .tab-btn::after { background: var(--c); }
+
+  .tab-btn.active {
+    color: var(--c);
+  }
+
+  .tab-btn.active::after {
+    transform: scaleX(1);
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fadeIn 0.4s ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* LEVEL HEADER */
+  .level-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+
+  .level-icon {
+    width: 48px; height: 48px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  [data-panel="simple"] .level-icon { background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.2); }
+  [data-panel="complicated"] .level-icon { background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.2); }
+  [data-panel="pro"] .level-icon { background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2); }
+
+  .level-meta h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  [data-panel="simple"] .level-meta h2 { color: var(--simple); }
+  [data-panel="complicated"] .level-meta h2 { color: var(--complicated); }
+  [data-panel="pro"] .level-meta h2 { color: var(--pro); }
+
+  .level-meta p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .tag {
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    border: 1px solid;
+  }
+
+  /* STEPS */
+  .steps { display: flex; flex-direction: column; gap: 16px; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    padding: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    position: relative;
+    transition: border-color 0.3s;
+  }
+
+  .step:hover { border-color: var(--muted); }
+
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+    opacity: 0.15;
+    align-self: start;
+  }
+
+  .step h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .step p {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: #080810;
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin-top: 12px;
+    position: relative;
+    overflow-x: auto;
+  }
+
+  .code-block pre {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #c0c0d8;
+    white-space: pre;
+  }
+
+  .code-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .hl-green { color: #00e5a0; }
+  .hl-orange { color: #ff9500; }
+  .hl-blue { color: #5bb8ff; }
+  .hl-purple { color: #c084fc; }
+  .hl-red { color: #ff6b6b; }
+  .hl-muted { color: #555580; }
+
+  /* COPY BTN */
+  .copy-btn {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: var(--border);
+    border: none;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .copy-btn:hover { background: var(--muted); color: var(--text); }
+  .copy-btn.copied { background: rgba(0,229,160,0.2); color: var(--simple); }
+
+  /* TOOLS GRID */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .tool-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 16px;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .tool-card:hover {
+    border-color: var(--muted);
+    transform: translateY(-2px);
+  }
+
+  .tool-card .tool-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .tool-card .tool-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* DEMO PREVIEW */
+  .demo-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 32px;
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  .demo-box h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  #lottie-preview {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* WORKFLOW */
+  .workflow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 24px 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .wf-step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 12px 16px;
+    font-size: 11px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .wf-arrow {
+    color: var(--muted);
+    font-size: 16px;
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+
+  /* COMPARISON TABLE */
+  .comparison {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 60px;
+  }
+
+  .comparison th {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .comparison td {
+    padding: 14px 16px;
+    font-size: 12px;
+    border-bottom: 1px solid rgba(30,30,46,0.5);
+    vertical-align: top;
+  }
+
+  .comparison tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .check { color: var(--simple); }
+  .cross { color: var(--red); opacity: 0.5; }
+  .partial { color: var(--complicated); }
+
+  /* FOOTER NOTE */
+  .footer-note {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">✦ Guia Completo</div>
+  <h1>Como Criar<br><span>LottieFiles</span></h1>
+  <p class="subtitle">3 formas — do mais simples ao mais profissional</p>
+</div>
+
+<!-- WHAT IS -->
+<div class="what-is">
+  <p>
+    <strong>O que é um Lottie?</strong> É uma animação vetorial em formato <strong>JSON</strong>, criada a partir do Adobe After Effects e exportada com o plugin <strong>Bodymovin</strong>. Roda em web, iOS e Android sem perda de qualidade, com arquivos minúsculos. O LottieFiles é a plataforma que centraliza biblioteca, editor e player desses arquivos.
+  </p>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" data-tab="simple">01 / Simples</button>
+  <button class="tab-btn" data-tab="complicated">02 / Complicada</button>
+  <button class="tab-btn" data-tab="pro">03 / Profissional</button>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ===== SIMPLES ===== -->
+  <div class="tab-panel active" data-panel="simple" id="panel-simple">
+    <div class="level-header">
+      <div class="level-icon">🪄</div>
+      <div class="level-meta">
+        <h2>A Forma Simples</h2>
+        <p>Usar animações prontas do LottieFiles e embedar no site com 3 linhas de código.</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--simple);border-color:rgba(0,229,160,0.3)">Zero After Effects</span>
+          <span class="tag" style="color:var(--simple);border-color:rgba(0,229,160,0.3)">5 minutos</span>
+          <span class="tag" style="color:var(--simple);border-color:rgba(0,229,160,0.3)">Sem código</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Acesse lottiefiles.com</h3>
+          <p>Vá em <strong>lottiefiles.com</strong> e busque a animação que quer. Há milhares grátis: loading, success, arrows, icons...</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Baixe o arquivo .json ou copie o link</h3>
+          <p>Clique na animação → Download → <strong>JSON</strong>. Ou copie o "Lottie URL" direto para usar via CDN.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Embed com o player oficial</h3>
+          <p>Cole 1 script + 1 tag no seu HTML. Pronto. Sem dependências, sem build.</p>
+
+          <div class="code-block">
+            <span class="code-label">HTML — método mais rápido possível</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+            <pre>
+<span class="hl-muted">&lt;!-- 1. Importa o player --&gt;</span>
+<span class="hl-blue">&lt;script</span> <span class="hl-orange">src</span>=<span class="hl-green">"https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"</span><span class="hl-blue">&gt;&lt;/script&gt;</span>
+
+<span class="hl-muted">&lt;!-- 2. Usa a tag (com URL ou .json local) --&gt;</span>
+<span class="hl-blue">&lt;lottie-player</span>
+  <span class="hl-orange">src</span>=<span class="hl-green">"https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json"</span>
+  <span class="hl-orange">background</span>=<span class="hl-green">"transparent"</span>
+  <span class="hl-orange">speed</span>=<span class="hl-green">"1"</span>
+  <span class="hl-orange">style</span>=<span class="hl-green">"width:300px;height:300px"</span>
+  <span class="hl-purple">loop</span>
+  <span class="hl-purple">autoplay</span>
+<span class="hl-blue">&gt;&lt;/lottie-player&gt;</span>
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Personalize cores no editor online</h3>
+          <p>No LottieFiles, antes de baixar, você pode trocar as cores da animação no editor visual sem precisar de After Effects.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-box">
+      <h3>Preview — animação Lottie rodando aqui</h3>
+      <canvas id="lottie-preview"></canvas>
+      <p style="color:var(--muted);font-size:11px;margin-top:12px">↑ gerado com lottie-web via JavaScript puro</p>
+    </div>
+  </div>
+
+  <!-- ===== COMPLICADA ===== -->
+  <div class="tab-panel" data-panel="complicated" id="panel-complicated">
+    <div class="level-header">
+      <div class="level-icon">⚙️</div>
+      <div class="level-meta">
+        <h2>A Forma Complicada</h2>
+        <p>Escrever o JSON Lottie manualmente ou criar animações via código.</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--complicated);border-color:rgba(255,107,53,0.3)">JSON à mão</span>
+          <span class="tag" style="color:var(--complicated);border-color:rgba(255,107,53,0.3)">Horas</span>
+          <span class="tag" style="color:var(--complicated);border-color:rgba(255,107,53,0.3)">Masoquismo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Entenda a estrutura do JSON Lottie</h3>
+          <p>O Lottie é um JSON com especificação própria. Você precisa entender os campos principais antes de escrever qualquer coisa.</p>
+          <div class="code-block">
+            <span class="code-label">Estrutura mínima de um Lottie JSON</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+            <pre>
+{
+  <span class="hl-green">"v"</span>: <span class="hl-orange">"5.5.7"</span>,          <span class="hl-muted">// versão do Bodymovin</span>
+  <span class="hl-green">"fr"</span>: <span class="hl-purple">60</span>,            <span class="hl-muted">// framerate</span>
+  <span class="hl-green">"ip"</span>: <span class="hl-purple">0</span>,             <span class="hl-muted">// in-point (frame inicial)</span>
+  <span class="hl-green">"op"</span>: <span class="hl-purple">120</span>,           <span class="hl-muted">// out-point (frame final)</span>
+  <span class="hl-green">"w"</span>: <span class="hl-purple">500</span>,            <span class="hl-muted">// largura</span>
+  <span class="hl-green">"h"</span>: <span class="hl-purple">500</span>,            <span class="hl-muted">// altura</span>
+  <span class="hl-green">"nm"</span>: <span class="hl-orange">"My Animation"</span>, <span class="hl-muted">// nome</span>
+  <span class="hl-green">"layers"</span>: [          <span class="hl-muted">// array de layers</span>
+    {
+      <span class="hl-green">"ty"</span>: <span class="hl-purple">4</span>,          <span class="hl-muted">// type: 4 = shape layer</span>
+      <span class="hl-green">"nm"</span>: <span class="hl-orange">"Circle"</span>,
+      <span class="hl-green">"ip"</span>: <span class="hl-purple">0</span>,
+      <span class="hl-green">"op"</span>: <span class="hl-purple">120</span>,
+      <span class="hl-green">"shapes"</span>: [
+        {
+          <span class="hl-green">"ty"</span>: <span class="hl-orange">"el"</span>,       <span class="hl-muted">// ellipse</span>
+          <span class="hl-green">"p"</span>: { <span class="hl-green">"v"</span>: [<span class="hl-purple">250</span>, <span class="hl-purple">250</span>] },
+          <span class="hl-green">"s"</span>: { <span class="hl-green">"v"</span>: [<span class="hl-purple">200</span>, <span class="hl-purple">200</span>] }
+        },
+        {
+          <span class="hl-green">"ty"</span>: <span class="hl-orange">"fl"</span>,       <span class="hl-muted">// fill</span>
+          <span class="hl-green">"c"</span>: { <span class="hl-green">"v"</span>: [<span class="hl-purple">0</span>, <span class="hl-purple">0.9</span>, <span class="hl-purple">0.6</span>, <span class="hl-purple">1</span>] } <span class="hl-muted">// RGBA 0-1</span>
+        }
+      ],
+      <span class="hl-green">"ks"</span>: {            <span class="hl-muted">// keyframes de transform</span>
+        <span class="hl-green">"s"</span>: {           <span class="hl-muted">// scale animado</span>
+          <span class="hl-green">"a"</span>: <span class="hl-purple">1</span>,         <span class="hl-muted">// animated: true</span>
+          <span class="hl-green">"k"</span>: [
+            { <span class="hl-green">"t"</span>: <span class="hl-purple">0</span>,   <span class="hl-green">"s"</span>: [<span class="hl-purple">100</span>, <span class="hl-purple">100</span>] },
+            { <span class="hl-green">"t"</span>: <span class="hl-purple">60</span>,  <span class="hl-green">"s"</span>: [<span class="hl-purple">150</span>, <span class="hl-purple">150</span>] },
+            { <span class="hl-green">"t"</span>: <span class="hl-purple">120</span>, <span class="hl-green">"s"</span>: [<span class="hl-purple">100</span>, <span class="hl-purple">100</span>] }
+          ]
+        }
+      }
+    }
+  ]
+}
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Ou use a lib <code>lottie-api</code> / <code>lottie-builder</code> via Node</h3>
+          <p>Algumas libs permitem construir o JSON programaticamente em JavaScript ou Python, sem After Effects.</p>
+          <div class="code-block">
+            <span class="code-label">Node.js — gerar JSON via código</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+            <pre>
+<span class="hl-blue">npm install</span> lottie-builder
+
+<span class="hl-muted">// animation.js</span>
+<span class="hl-purple">import</span> { LottieBuilder } <span class="hl-purple">from</span> <span class="hl-green">'lottie-builder'</span>;
+
+<span class="hl-purple">const</span> anim = <span class="hl-blue">new</span> LottieBuilder({
+  width: <span class="hl-purple">500</span>, height: <span class="hl-purple">500</span>, frameRate: <span class="hl-purple">60</span>, duration: <span class="hl-purple">2</span>
+});
+
+<span class="hl-muted">// Adiciona um círculo que pulsa</span>
+anim
+  .addLayer(<span class="hl-green">'circle'</span>)
+  .setColor(<span class="hl-green">'#00e5a0'</span>)
+  .keyframe(<span class="hl-purple">0</span>,   { scale: [<span class="hl-purple">100</span>, <span class="hl-purple">100</span>] })
+  .keyframe(<span class="hl-purple">60</span>,  { scale: [<span class="hl-purple">130</span>, <span class="hl-purple">130</span>] })
+  .keyframe(<span class="hl-purple">120</span>, { scale: [<span class="hl-purple">100</span>, <span class="hl-purple">100</span>] });
+
+<span class="hl-blue">fs</span>.writeFileSync(<span class="hl-green">'output.json'</span>, anim.toJSON());
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Valide com o LottieFiles Web Player</h3>
+          <p>Arraste o .json em <strong>lottiefiles.com/preview</strong> ou use o Lottie Inspector para debugar keyframes e layers com problema.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>⚠️ Por que é complicado</h3>
+          <p>O formato Lottie não foi feito para ser escrito à mão. Curvas bezier, easing e transformações aninhadas ficam rapidamente ilegíveis. Só faça isso se tiver um motivo muito específico (ex: geração procedural de animações via código).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PRO ===== -->
+  <div class="tab-panel" data-panel="pro" id="panel-pro">
+    <div class="level-header">
+      <div class="level-icon">🎬</div>
+      <div class="level-meta">
+        <h2>A Forma Profissional</h2>
+        <p>After Effects + Bodymovin plugin → exporta JSON perfeito, com controle total.</p>
+        <div class="tags">
+          <span class="tag" style="color:var(--pro);border-color:rgba(167,139,250,0.3)">After Effects</span>
+          <span class="tag" style="color:var(--pro);border-color:rgba(167,139,250,0.3)">Controle total</span>
+          <span class="tag" style="color:var(--pro);border-color:rgba(167,139,250,0.3)">Padrão da indústria</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Workflow visual -->
+    <div class="workflow">
+      <div class="wf-step" style="border-color:rgba(167,139,250,0.3);color:var(--pro)">After Effects</div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step">Bodymovin Plugin</div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step">Render → .json</div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step">LottieFiles (preview/otimização)</div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step" style="border-color:rgba(0,229,160,0.3);color:var(--simple)">Deploy</div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Instale o plugin Bodymovin no After Effects</h3>
+          <p>Baixe via <strong>ZXP Installer</strong> ou direto em <strong>aescripts.com/bodymovin</strong>. É gratuito. Ativa em: AE → Window → Extensions → Bodymovin.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Boas práticas na criação da animação</h3>
+          <p>Para o export funcionar bem, siga essas regras no After Effects:</p>
+          <div class="code-block" style="margin-top:12px">
+            <span class="code-label">Checklist AE para Lottie</span>
+            <pre>
+<span class="hl-green">✓</span>  Use <span class="hl-orange">vetores/shapes</span> — nunca bitmaps/fotos
+<span class="hl-green">✓</span>  Prefira <span class="hl-orange">Shape Layers</span> ao invés de Illustrator layers
+<span class="hl-green">✓</span>  <span class="hl-orange">Pre-comp</span> só quando necessário (aumenta o .json)
+<span class="hl-green">✓</span>  Use <span class="hl-orange">Easy Ease</span> nos keyframes (exporta bezier correto)
+<span class="hl-green">✓</span>  Evite <span class="hl-orange">efectos e plugins</span> de terceiros (não exportam)
+<span class="hl-green">✓</span>  Nomeie <span class="hl-orange">todos os layers</span> (facilita controle via JS)
+<span class="hl-green">✓</span>  Use <span class="hl-orange">Trim Paths</span> para animações de linha/traço
+<span class="hl-red">✗</span>  Nada de <span class="hl-red">3D layers</span>, <span class="hl-red">camera</span>, <span class="hl-red">rasterize contínuo</span>
+<span class="hl-red">✗</span>  Evite <span class="hl-red">blending modes</span> complexos (alguns não funcionam)
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Export com Bodymovin</h3>
+          <p>Abra o Bodymovin, selecione a composição, escolha a pasta de destino e clique em <strong>Render</strong>. Gera um <code>data.json</code> (+ assets se tiver imagens).</p>
+          <div class="code-block">
+            <span class="code-label">Configurações recomendadas no Bodymovin</span>
+            <pre>
+Settings recomendados:
+  <span class="hl-green">✓</span> Glyphs         → converte fontes em paths
+  <span class="hl-green">✓</span> Expressions    → interpola expressões simples
+  <span class="hl-green">✓</span> Reduce Code    → minifica o JSON
+  <span class="hl-orange">~</span> Images         → embed como base64 (aumenta tamanho)
+  <span class="hl-red">✗</span> Hidden Layers  → não exporta layers ocultos
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Otimize com LottieFiles ou lottie-compress</h3>
+          <p>Suba no LottieFiles para ver preview + métricas de performance. Use o <strong>lottie-compress</strong> para reduzir o tamanho do JSON.</p>
+          <div class="code-block">
+            <span class="code-label">Terminal — otimização</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+            <pre>
+<span class="hl-blue">npx</span> lottie-compress input.json <span class="hl-orange">-o</span> output.json
+
+<span class="hl-muted"># ou com o CLI do LottieFiles</span>
+<span class="hl-blue">npx</span> @lottiefiles/lottie-js compress data.json
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h3>Controle avançado em produção via lottie-web</h3>
+          <p>Controle programático total: play, pause, speed, segmentos, eventos, controle frame a frame, interatividade via scroll.</p>
+          <div class="code-block">
+            <span class="code-label">JavaScript — controle profissional</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+            <pre>
+<span class="hl-purple">import</span> lottie <span class="hl-purple">from</span> <span class="hl-green">'lottie-web'</span>;
+
+<span class="hl-purple">const</span> anim = lottie.<span class="hl-blue">loadAnimation</span>({
+  container: document.<span class="hl-blue">getElementById</span>(<span class="hl-green">'anim'</span>),
+  renderer: <span class="hl-green">'svg'</span>,     <span class="hl-muted">// 'svg' | 'canvas' | 'html'</span>
+  loop: <span class="hl-purple">false</span>,
+  autoplay: <span class="hl-purple">false</span>,
+  path: <span class="hl-green">'/animations/data.json'</span>
+});
+
+<span class="hl-muted">// Tocar só um segmento</span>
+anim.<span class="hl-blue">playSegments</span>([<span class="hl-purple">0</span>, <span class="hl-purple">30</span>], <span class="hl-purple">true</span>);
+
+<span class="hl-muted">// Controlar velocidade</span>
+anim.<span class="hl-blue">setSpeed</span>(<span class="hl-purple">1.5</span>);
+
+<span class="hl-muted">// Ir para frame específico e pausar</span>
+anim.<span class="hl-blue">goToAndStop</span>(<span class="hl-purple">45</span>, <span class="hl-purple">true</span>);
+
+<span class="hl-muted">// Animação interativa com scroll</span>
+window.<span class="hl-blue">addEventListener</span>(<span class="hl-green">'scroll'</span>, () => {
+  <span class="hl-purple">const</span> progress = window.scrollY / document.body.scrollHeight;
+  <span class="hl-purple">const</span> frame = Math.<span class="hl-blue">round</span>(progress * anim.totalFrames);
+  anim.<span class="hl-blue">goToAndStop</span>(frame, <span class="hl-purple">true</span>);
+});
+
+<span class="hl-muted">// Trocar cor de layer por nome</span>
+<span class="hl-purple">const</span> api = lottie.<span class="hl-blue">loadAnimation</span>({ ... });
+api.<span class="hl-blue">addEventListener</span>(<span class="hl-green">'DOMLoaded'</span>, () => {
+  api.renderer.elements[<span class="hl-purple">0</span>]
+    .updateDocumentData({ fillColor: <span class="hl-green">'#ff6b35'</span> });
+});
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div>
+          <h3>Alternativa moderna: Rive</h3>
+          <p>Se você quer animações interativas com máquinas de estado (ex: hover → play → idle), considere o <strong>Rive</strong> como alternativa profissional ao Lottie. Mais controle, arquivo menor, mas curva de aprendizado diferente.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ferramentas pro -->
+    <div style="margin-top:32px">
+      <p style="font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:16px">Ferramentas do ecossistema profissional</p>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tool-name" style="color:var(--pro)">Bodymovin / AE</div>
+          <div class="tool-desc">Plugin oficial para exportar AE → JSON</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name" style="color:var(--pro)">lottie-web</div>
+          <div class="tool-desc">Player JS com controle total por código</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name" style="color:var(--pro)">LottieFiles Editor</div>
+          <div class="tool-desc">Edita cores e preview no browser</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name" style="color:var(--pro)">dotLottie</div>
+          <div class="tool-desc">Formato .lottie (zip de json+assets), 10x menor</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name" style="color:var(--pro)">React Lottie</div>
+          <div class="tool-desc">Wrapper React com props e eventos</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name" style="color:var(--pro)">Rive (alternativa)</div>
+          <div class="tool-desc">State machines, mais moderno que Lottie</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <table class="comparison">
+    <thead>
+      <tr>
+        <th>Critério</th>
+        <th style="color:var(--simple)">Simples</th>
+        <th style="color:var(--complicated)">Complicada</th>
+        <th style="color:var(--pro)">Profissional</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Tempo de setup</td>
+        <td>5 min</td>
+        <td>Horas</td>
+        <td>1–2 dias (AE)</td>
+      </tr>
+      <tr>
+        <td>Precisa de software pago</td>
+        <td><span class="check">✓ Não</span></td>
+        <td><span class="check">✓ Não</span></td>
+        <td><span class="cross">✗ After Effects</span></td>
+      </tr>
+      <tr>
+        <td>Animação customizada</td>
+        <td><span class="partial">~ Cores apenas</span></td>
+        <td><span class="check">✓ Total</span></td>
+        <td><span class="check">✓ Total</span></td>
+      </tr>
+      <tr>
+        <td>Qualidade do resultado</td>
+        <td>Boa</td>
+        <td>Técnica</td>
+        <td>Profissional</td>
+      </tr>
+      <tr>
+        <td>Manutenível</td>
+        <td><span class="check">✓ Sim</span></td>
+        <td><span class="cross">✗ Difícil</span></td>
+        <td><span class="check">✓ Sim</span></td>
+      </tr>
+      <tr>
+        <td>Indicado para</td>
+        <td>Projetos rápidos</td>
+        <td>Geração procedural</td>
+        <td>Produto final</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="footer-note">
+  lottiefiles.com · lottie-web · bodymovin · dotlottie ✦ guia feito com Claude
+</div>
+
+<script>
+  // TABS
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // COPY
+  function copyCode(btn) {
+    const code = btn.nextElementSibling.textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'copiar'; btn.classList.remove('copied'); }, 1500);
+    });
+  }
+
+  // LOTTIE DEMO — círculo pulsante desenhado com canvas
+  (function() {
+    const canvas = document.getElementById('lottie-preview');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 150; canvas.height = 150;
+    let t = 0;
+    function draw() {
+      ctx.clearRect(0, 0, 150, 150);
+      const pulse = 1 + 0.15 * Math.sin(t);
+      const r = 40 * pulse;
+      // outer glow
+      const grd = ctx.createRadialGradient(75, 75, r * 0.5, 75, 75, r * 1.4);
+      grd.addColorStop(0, 'rgba(0,229,160,0.3)');
+      grd.addColorStop(1, 'rgba(0,229,160,0)');
+      ctx.beginPath();
+      ctx.arc(75, 75, r * 1.4, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+      // main circle
+      ctx.beginPath();
+      ctx.arc(75, 75, r, 0, Math.PI * 2);
+      ctx.fillStyle = '#00e5a0';
+      ctx.fill();
+      // inner
+      ctx.beginPath();
+      ctx.arc(75, 75, r * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.3)';
+      ctx.fill();
+      // orbit dot
+      const ox = 75 + (r + 12) * Math.cos(t * 1.5);
+      const oy = 75 + (r + 12) * Math.sin(t * 1.5);
+      ctx.beginPath();
+      ctx.arc(ox, oy, 5, 0, Math.PI * 2);
+      ctx.fillStyle = '#a78bfa';
+      ctx.fill();
+      t += 0.04;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+</script>
+</body>
+</html>

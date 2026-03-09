@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para meu Amor ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffe6e9;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Animação de entrada do Card */
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 105, 135, 0.25);
+            text-align: center;
+            max-width: 350px;
+            width: 85%;
+            animation: fadeIn 1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        h1 { color: #ff6b81; margin-top: 0; }
+        p { color: #666; line-height: 1.4; }
+
+        #joke-display {
+            min-height: 50px;
+            margin: 20px 0;
+            color: #ff4757;
+            font-weight: 700;
+            animation: pop 0.3s ease;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0.8); }
+            100% { transform: scale(1); }
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 50px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 8px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-love {
+            background-color: #ff6b81;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 107, 129, 0.3);
+        }
+
+        .btn-love:hover { transform: scale(1.05); background-color: #ff4757; }
+
+        .btn-surprise {
+            background-color: #70a1ff;
+            color: white;
+            font-size: 0.9em;
+        }
+
+        /* O botão fujão corrigido */
+        .btn-prank {
+            background-color: #ced4da;
+            color: #495057;
+            position: fixed; /* Fixed para ignorar o container */
+            z-index: 999;
+            touch-action: none; /* Impede zoom/scroll ao tocar */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Oi, Vida! ✨</h1>
+        <p>Um sitezinho só pra te ver sorrir.</p>
+
+        <div id="joke-display">Clique nos botões abaixo...</div>
+
+        <button class="btn btn-love" onclick="novaPiada()">Piadinha kkk 🍭</button>
+        
+        <div style="margin: 20px 0; border-top: 1px dashed #ffb1bb; padding-top: 10px;">
+            <p>Você me ama?</p>
+            <button class="btn btn-love" onclick="ganhou()">SIM!</button>
+            <button class="btn btn-prank" id="fujao" 
+                    onmouseover="fugir()" 
+                    ontouchstart="fugir()">Não...</button>
+        </div>
+
+        <button class="btn btn-surprise" onclick="linkAleatorio()">Surpresa Aleatória 🎲</button>
+    </div>
+
+    <script>
+        const frases = [
+            // --- NERDS & TECH ---
+            "Você é o 'comitar' que faltava no meu código.",
+            "Não sou Wi-Fi, mas sinto uma conexão forte.",
+            "Você não é Google, mas tem tudo o que eu procuro.",
+            "Minha vida sem você é como um site sem CSS: sem graça!",
+            "Você é o 'ctrl+c' da minha felicidade.",
+            "Me chama de teclado e diz que eu sou o seu tipo!",
+            "Você é o erro 404 do meu coração: não encontrei nada igual.",
+            "Você é o ponto e vírgula que faltava para o meu código rodar.",
+            "Meu amor por você é como um loop infinito: não tem fim.",
+            "Você é o 'root' do meu sistema: manda em tudo!",
+            "Se você fosse um hardware, seria o meu SSD: rápida em me conquistar.",
+            "Você não é Bluetooth, mas a nossa conexão é automática.",
+            "Você é o único 'plugin' que eu preciso para ser feliz.",
+            "Me chama de algoritmo e deixa eu resolver todos os seus problemas.",
+
+            // --- CLÁSSICAS & ENGRAÇADAS ---
+            "Você não é GPS, mas me perdi no seu olhar.",
+            "Se beleza fosse crime, você pegaria prisão perpétua.",
+            "Você tem um mapa? Porque me perdi no brilho dos seus olhos.",
+            "Você não é pescoço, mas mexeu com a minha cabeça.",
+            "Me chama de relógio e deixa eu passar um tempo com você.",
+            "Você é o ovo que faltava na minha marmita.",
+            "A economia está ruim, mas o meu investimento em você só cresce.",
+            "Não sou plano de saúde, mas prometo cuidar bem de você.",
+            "Você não é terremoto, mas abalou as minhas estruturas.",
+            "Seu nome é Wi-Fi? Porque estou sentindo uma conexão.",
+            "Você é o 'open' do meu bar.",
+            "Não sou astronauta, mas quando te vejo fico nas nuvens.",
+            "Gata, você não é o Sol, mas é o centro do meu universo.",
+            "Me chama de previsão do tempo e diz que hoje vai dar nós.",
+
+            // --- FOFAS & ROMÂNTICAS ---
+            "Seu pai é mecânico? Porque você é uma graxinha!",
+            "Você não é banco, mas meu interesse por você só aumenta.",
+            "Seu nome é Alice? Porque você é uma maravilha!",
+            "Você não é caneta, mas escreveu uma história no meu coração.",
+            "Sabe o que ficaria bem em você? Eu.",
+            "Eu não sou o gênio da lâmpada, mas posso realizar seus desejos.",
+            "Não sou traficante, mas quero te prender no meu coração.",
+            "Você não é cardiologista, mas cuida muito bem do meu coração.",
+            "Sua mãe é uma ostra? Porque você é uma pérola!",
+            "Você é o açúcar que faltava no meu café.",
+            "Não sou o Batman, mas posso ser o seu herói.",
+            "Você não é bússola, mas é o meu norte.",
+
+            // --- MAIS TECH & ALEATÓRIAS ---
+            "Você é a atualização que o meu coração precisava.",
+            "Se eu fosse um bit, você seria o meu byte.",
+            "Você é o processador mais rápido que já rodou no meu sistema.",
+            "Meu coração está em 100% de uso quando você chega perto.",
+            "Você é o 'deploy' mais bem-sucedido da minha vida.",
+            "Não sou hacker, mas já invadi seus pensamentos hoje?",
+            "Você é a tecla 'Enter' que confirma a minha felicidade.",
+            "Se beleza desse dinheiro, você seria o Elon Musk.",
+            "Você não é carregador, mas me dá uma energia incrível.",
+            "Você é o favicon que dá cor à aba da minha vida."
+        ];
+
+        // Links aleatórios (adicione os que quiser!)
+        const links = [
+            "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Rickroll clássico
+            "https://www.google.com/search?q=fotos+de+gatinhos+fofos",
+            "https://pudim.com.br",
+            "https://www.youtube.com/watch?v=3F_QZ3WVyIY", 
+            "https://pointerpointer.com/",
+            "http://www.staggeringbeauty.com/",
+            "https://cat-bounce.com/",
+            "http://eelslap.com/",
+            "https://www.koalastothemax.com/"
+           
+        ];
+
+        function novaPiada() {
+            const display = document.getElementById('joke-display');
+            display.innerText = frases[Math.floor(Math.random() * frases.length)];
+            // Efeito de animação ao trocar o texto
+            display.style.animation = 'none';
+            display.offsetHeight; 
+            display.style.animation = 'pop 0.3s ease';
+        }
+
+        function linkAleatorio() {
+            const url = links[Math.floor(Math.random() * links.length)];
+            window.open(url, '_blank');
+        }
+
+        function ganhou() {
+            alert("Resposta correta! Você ganhou 1000 beijos. ❤️");
+            document.body.style.backgroundColor = "#ff4757";
+        }
+
+        function fugir() {
+            const btn = document.getElementById('fujao');
+            
+            // Garante que o botão nunca fique parado
+            const padding = 50;
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - padding);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - padding);
+
+            btn.style.left = x + "px";
+            btn.style.top = y + "px";
+        }
+    </script>
+</body>
+</html>
