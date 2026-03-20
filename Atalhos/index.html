@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AccessKeys Sem Loop</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>⌨️ AccessKeys (SEM LOOP)</h1>
+    <p>Use ALT + tecla (ou ALT + SHIFT dependendo do navegador)</p>
+
+    <h2>🔤 Letras (A-Z)</h2>
+    <div class="grid">
+        <button accesskey="a" onclick="alert('Tecla: A')">A</button>
+        <button accesskey="b" onclick="alert('Tecla: B')">B</button>
+        <button accesskey="c" onclick="alert('Tecla: C')">C</button>
+        <button accesskey="d" onclick="alert('Tecla: D')">D</button>
+        <button accesskey="e" onclick="alert('Tecla: E')">E</button>
+        <button accesskey="f" onclick="alert('Tecla: F')">F</button>
+        <button accesskey="g" onclick="alert('Tecla: G')">G</button>
+        <button accesskey="h" onclick="alert('Tecla: H')">H</button>
+        <button accesskey="i" onclick="alert('Tecla: I')">I</button>
+        <button accesskey="j" onclick="alert('Tecla: J')">J</button>
+        <button accesskey="k" onclick="alert('Tecla: K')">K</button>
+        <button accesskey="l" onclick="alert('Tecla: L')">L</button>
+        <button accesskey="m" onclick="alert('Tecla: M')">M</button>
+        <button accesskey="n" onclick="alert('Tecla: N')">N</button>
+        <button accesskey="o" onclick="alert('Tecla: O')">O</button>
+        <button accesskey="p" onclick="alert('Tecla: P')">P</button>
+        <button accesskey="q" onclick="alert('Tecla: Q')">Q</button>
+        <button accesskey="r" onclick="alert('Tecla: R')">R</button>
+        <button accesskey="s" onclick="alert('Tecla: S')">S</button>
+        <button accesskey="t" onclick="alert('Tecla: T')">T</button>
+        <button accesskey="u" onclick="alert('Tecla: U')">U</button>
+        <button accesskey="v" onclick="alert('Tecla: V')">V</button>
+        <button accesskey="w" onclick="alert('Tecla: W')">W</button>
+        <button accesskey="x" onclick="alert('Tecla: X')">X</button>
+        <button accesskey="y" onclick="alert('Tecla: Y')">Y</button>
+        <button accesskey="z" onclick="alert('Tecla: Z')">Z</button>
+    </div>
+
+    <h2>🔢 Números (0-9)</h2>
+    <div class="grid">
+        <button accesskey="0" onclick="alert('Número: 0')">0</button>
+        <button accesskey="1" onclick="alert('Número: 1')">1</button>
+        <button accesskey="2" onclick="alert('Número: 2')">2</button>
+        <button accesskey="3" onclick="alert('Número: 3')">3</button>
+        <button accesskey="4" onclick="alert('Número: 4')">4</button>
+        <button accesskey="5" onclick="alert('Número: 5')">5</button>
+        <button accesskey="6" onclick="alert('Número: 6')">6</button>
+        <button accesskey="7" onclick="alert('Número: 7')">7</button>
+        <button accesskey="8" onclick="alert('Número: 8')">8</button>
+        <button accesskey="9" onclick="alert('Número: 9')">9</button>
+    </div>
+
+    <h2>🔥 Teste</h2>
+    <p>Aperte ALT + qualquer tecla acima</p>
+
+    <script>
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "a") {
+                alert("Você pressionou A");
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "e") {
+                alert("Você pressionou E");
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "i") {
+                alert("Você pressionou I");
+            }
+        });
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "o") {
+                alert("Você pressionou O");
+            }
+        });
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "u") {
+                alert("Você pressionou U");
+            }
+        });
+    </script>
+
+</body>
+
+</html>
