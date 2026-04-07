@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simulador de Afinações Completo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #ffa620;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ffcf4b;
+            box-shadow: 0 0 10px #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>🎵 Simulador de Afinações</h2>
+
+    <!-- ================= VIOLÃO 6 CORDAS ================= -->
+    <h3>🎸 Violão 6 Cordas (Padrão E A D G B E)</h3>
+    <button onclick="tocar(82.41)">E</button>
+    <button onclick="tocar(110.00)">A</button>
+    <button onclick="tocar(146.83)">D</button>
+    <button onclick="tocar(196.00)">G</button>
+    <button onclick="tocar(246.94)">B</button>
+    <button onclick="tocar(329.63)">E</button>
+
+    <!-- DROP D -->
+    <h3>🎸 Violão 6 Cordas Drop D (D A D G B E)</h3>
+    <button onclick="tocar(73.42)">D</button>
+    <button onclick="tocar(110.00)">A</button>
+    <button onclick="tocar(146.83)">D</button>
+    <button onclick="tocar(196.00)">G</button>
+    <button onclick="tocar(246.94)">B</button>
+    <button onclick="tocar(329.63)">E</button>
+
+    <hr>
+
+    <!-- ================= VIOLÃO 7 CORDAS ================= -->
+    <h3>🎸 Violão 7 Cordas (B E A D G B E)</h3>
+    <button onclick="tocar(61.74)">B grave</button>
+    <button onclick="tocar(82.41)">E</button>
+    <button onclick="tocar(110.00)">A</button>
+    <button onclick="tocar(146.83)">D</button>
+    <button onclick="tocar(196.00)">G</button>
+    <button onclick="tocar(246.94)">B</button>
+    <button onclick="tocar(329.63)">E</button>
+
+    <hr>
+
+    <!-- ================= BAIXO 4 ================= -->
+    <h3>🎸 Baixo 4 Cordas (E A D G)</h3>
+    <button onclick="tocar(41.20)">E</button>
+    <button onclick="tocar(55.00)">A</button>
+    <button onclick="tocar(73.42)">D</button>
+    <button onclick="tocar(98.00)">G</button>
+
+    <!-- DROP D -->
+    <h3>🎸 Baixo 4 Cordas Drop D (D A D G)</h3>
+    <button onclick="tocar(36.71)">D grave</button>
+    <button onclick="tocar(55.00)">A</button>
+    <button onclick="tocar(73.42)">D</button>
+    <button onclick="tocar(98.00)">G</button>
+
+    <hr>
+
+    <!-- ================= BAIXO 5 ================= -->
+    <h3>🎸 Baixo 5 Cordas (B E A D G)</h3>
+    <button onclick="tocar(30.87)">B grave</button>
+    <button onclick="tocar(41.20)">E</button>
+    <button onclick="tocar(55.00)">A</button>
+    <button onclick="tocar(73.42)">D</button>
+    <button onclick="tocar(98.00)">G</button>
+
+    <!-- DROP D -->
+    <h3>🎸 Baixo 5 Cordas Drop D (B D A D G)</h3>
+    <button onclick="tocar(30.87)">B</button>
+    <button onclick="tocar(36.71)">D grave</button>
+    <button onclick="tocar(55.00)">A</button>
+    <button onclick="tocar(73.42)">D</button>
+    <button onclick="tocar(98.00)">G</button>
+
+    <hr>
+
+    <!-- ================= UKULELE ================= -->
+    <h3>🎸 Ukulele (G C E A)</h3>
+    <button onclick="tocar(392.00)">G</button>
+    <button onclick="tocar(261.63)">C</button>
+    <button onclick="tocar(329.63)">E</button>
+    <button onclick="tocar(440.00)">A</button>
+
+    <hr>
+
+    <!-- ================= CAVAQUINHO ================= -->
+    <h3>🎸 Cavaquinho (D G B D)</h3>
+    <button onclick="tocar(293.66)">D</button>
+    <button onclick="tocar(196.00)">G</button>
+    <button onclick="tocar(246.94)">B</button>
+    <button onclick="tocar(293.66)">D</button>
+
+    <hr>
+
+    <!-- ================= BANJO ================= -->
+    <h3>🎸 Banjo (G D G B D)</h3>
+    <button onclick="tocar(392.00)">G agudo</button>
+    <button onclick="tocar(146.83)">D</button>
+    <button onclick="tocar(196.00)">G</button>
+    <button onclick="tocar(246.94)">B</button>
+    <button onclick="tocar(293.66)">D</button>
+
+    <script>
+        // ================= CONFIGURAÇÃO GLOBAL =================
+
+        // Cria UM único contexto de áudio (melhor performance)
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // ================= FUNÇÃO PRINCIPAL =================
+        function tocar(freq) {
+
+            // Cria o oscilador (gera o som)
+            const osc = ctx.createOscillator();
+
+            // Controle de volume
+            const gain = ctx.createGain();
+
+            // Tipo de onda:
+            // sine = som LIMPO (ideal pra afinação)
+            osc.type = "sine";
+
+            // Define a frequência (nota)
+            osc.frequency.value = freq;
+
+            // Conecta o oscilador ao controle de volume
+            osc.connect(gain);
+
+            // Conecta ao alto-falante
+            gain.connect(ctx.destination);
+
+            // Volume inicial (0.8 = alto mas sem distorcer)
+            gain.gain.setValueAtTime(0.8, ctx.currentTime);
+
+            // Faz o som diminuir suavemente (fade out)
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2);
+
+            // Inicia o som
+            osc.start();
+
+            // Para depois de 2 segundos
+            osc.stop(ctx.currentTime + 2);
+        }
+    </script>
+
+</body>
+
+</html>

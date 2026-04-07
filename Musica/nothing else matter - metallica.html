@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nothing Else Matters - Intro Realista</title>
+</head>
+
+<body style="font-family: Arial; text-align:center; margin-top:40px;">
+
+    <!-- Título da página -->
+    <h2>🎸 Nothing Else Matters (Intro mais fiel)</h2>
+
+    <!-- Botão que dispara a música -->
+    <button onclick="tocarMusica()">▶️ Tocar</button>
+
+    <script>
+
+        // 🎧 Cria o "motor de áudio" do navegador (Web Audio API)
+        // É como se fosse a placa de som do código
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // 🎵 Tabela de frequências (notas musicais)
+        // Cada nota corresponde a um valor em Hz (som)
+        const f = {
+            "E2": 82.41,   // corda grave (Mi)
+            "B2": 123.47,  // Si
+            "E3": 164.81,  // Mi mais agudo
+            "G3": 196.00   // Sol
+        };
+
+        // 🔊 Função que toca UMA nota
+        function tocar(freq, dur) {
+
+            // Cria o "gerador de som" (oscilador)
+            const osc = ctx.createOscillator();
+
+            // Controle de volume
+            const gain = ctx.createGain();
+
+            // Tipo de onda (som limpo tipo guitarra clean)
+            osc.type = "sine";
+
+            // Define a frequência da nota
+            osc.frequency.value = freq;
+
+            // Liga o som → volume → saída (caixa de som)
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            // Volume inicial
+            gain.gain.setValueAtTime(0.25, ctx.currentTime);
+
+            // Faz o som diminuir suavemente (fade out)
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+
+            // Começa a tocar
+            osc.start();
+
+            // Para depois da duração
+            osc.stop(ctx.currentTime + dur);
+        }
+
+        // 🎸 Função para tocar VÁRIAS notas ao mesmo tempo (acorde/dedilhado)
+        function tocarNotas(notas, dur) {
+
+            // Para cada nota no array, toca ao mesmo tempo
+            notas.forEach(n => tocar(f[n], dur));
+        }
+
+        // 🎼 Função principal da música
+        function tocarMusica() {
+
+            // BPM = velocidade da música
+            const bpm = 90;
+
+            // Converte BPM em tempo real (segundos)
+            const tBase = 60 / bpm;
+
+            // Controle de tempo acumulado
+            let t = 0;
+
+            // 🎯 Função que agenda cada nota no tempo certo
+            function play(notas, dur) {
+
+                setTimeout(() => {
+
+                    // Toca as notas (convertendo duração para tempo real)
+                    tocarNotas(notas, dur * tBase);
+
+                }, t * 1000); // converte segundos → milissegundos
+
+                // Soma o tempo dessa nota no total
+                t += dur * tBase;
+            }
+
+            // 🎸 Padrão de dedilhado (base da música)
+            function padrao() {
+
+                // Cada linha representa uma "palhetada" no tempo
+
+                play(["E2"], 1);     // baixo
+                play(["E3"], 0.5);   // corda aguda
+                play(["B2"], 0.5);   // intermediária
+                play(["G3"], 1);     // mais aguda
+
+                // repete o padrão
+                play(["E2"], 1);
+                play(["E3"], 0.5);
+                play(["B2"], 0.5);
+                play(["G3"], 1);
+            }
+
+            // 🔁 Repete o padrão (intro da música)
+            padrao();
+            padrao();
+            padrao();
+
+            // 🎵 Final da intro (duas notas juntas = acorde)
+            play(["E2", "E3"], 2);
+        }
+
+    </script>
+
+</body>
+
+</html>
